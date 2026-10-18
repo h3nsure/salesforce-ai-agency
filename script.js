@@ -56,9 +56,7 @@ function showPaymentNotice(message) {
 
 function openWalletPayment(wallet, amount) {
   const amountValue = Number(amount || 0);
-  if (!Number.isFinite(amountValue) || amountValue <= 0) {
-    return;
-  }
+  const isAmountExplicit = Number.isFinite(amountValue) && amountValue > 0;
 
   const walletNames = {
     googlepay: 'Google Pay',
@@ -74,9 +72,20 @@ function openWalletPayment(wallet, amount) {
 
   const upiId = 'htjnvk@okaxis';
   const payerName = 'Support Children and Elders';
-  const note = 'Donation for Education and Care';
-  const amountText = amountValue.toFixed(2);
-  const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
+  const noteMap = {
+    googlepay: 'Google Pay Donation',
+    phonepe: 'PhonePe Donation',
+    paytm: 'Paytm Donation'
+  };
+  const note = noteMap[wallet] || 'Donation for Education and Care';
+  const amountText = isAmountExplicit ? amountValue.toFixed(2) : '';
+  const upiParams = [
+    `pa=${upiId}`,
+    `pn=${encodeURIComponent(payerName)}`,
+    ...(isAmountExplicit ? [`am=${amountText}`] : []),
+    `cu=INR`,
+    `tn=${encodeURIComponent(note)}`
+  ].join('&');
   const isAndroid = /Android/i.test(navigator.userAgent);
 
   const walletLinks = {
@@ -172,7 +181,7 @@ const qrBoxes = document.querySelectorAll('.qr-box');
 qrBoxes.forEach((qrBox) => {
   const trigger = () => {
     const wallet = qrBox.dataset.wallet || 'googlepay';
-    const amount = 100;
+    const amount = 0;
     const isAndroid = /Android/i.test(navigator.userAgent);
 
     if (isAndroid || wallet === 'googlepay') {
