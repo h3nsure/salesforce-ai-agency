@@ -103,7 +103,12 @@
 
           <div class="wallet-grid">
             <div class="wallet-card">
-              <span class="wallet-badge google">Google Pay</span>
+              <div class="wallet-brand google">
+                <span class="wallet-logo" aria-hidden="true">
+                  <img src="Google pay.png" alt="Google Pay logo" />
+                </span>
+                <span class="wallet-name">Google Pay</span>
+              </div>
               <div class="qr-box" data-wallet="googlepay" tabindex="0" role="button" aria-label="Pay via Google Pay">
                 <img src="googlepay-qr.png" alt="Google Pay QR code for UPI donation" />
               </div>
@@ -122,7 +127,12 @@
             </div>
 
             <div class="wallet-card">
-              <span class="wallet-badge phonepe">PhonePe</span>
+              <div class="wallet-brand phonepe">
+                <span class="wallet-logo" aria-hidden="true">
+                  <img src="Phone Pay.png" alt="PhonePe logo" />
+                </span>
+                <span class="wallet-name">PhonePe</span>
+              </div>
               <div class="qr-box" data-wallet="phonepe" tabindex="0" role="button" aria-label="Pay via PhonePe">
                 <img src="phonepe-qr.png" alt="PhonePe QR code for UPI donation" />
               </div>
@@ -141,7 +151,12 @@
             </div>
 
             <div class="wallet-card">
-              <span class="wallet-badge paytm">Paytm</span>
+              <div class="wallet-brand paytm">
+                <span class="wallet-logo" aria-hidden="true">
+                  <img src="Paytm.jpeg" alt="Paytm logo" />
+                </span>
+                <span class="wallet-name">Paytm</span>
+              </div>
               <div class="qr-box" data-wallet="paytm" tabindex="0" role="button" aria-label="Pay via Paytm">
                 <img src="paytm-qr.png" alt="Paytm QR code for UPI donation" />
               </div>
@@ -199,15 +214,21 @@
         <h3 id="walletChooserTitle">Select your wallet</h3>
         <div class="wallet-chooser-grid">
           <button type="button" class="wallet-choice-btn" data-wallet-choice="googlepay">
-            <span class="choice-icon google">G</span>
+            <span class="choice-icon google" aria-hidden="true">
+              <img src="Google pay.png" alt="Google Pay logo" />
+            </span>
             <span>Google Pay</span>
           </button>
           <button type="button" class="wallet-choice-btn" data-wallet-choice="phonepe">
-            <span class="choice-icon phonepe">P</span>
+            <span class="choice-icon phonepe" aria-hidden="true">
+              <img src="Phone Pay.png" alt="PhonePe logo" />
+            </span>
             <span>PhonePe</span>
           </button>
           <button type="button" class="wallet-choice-btn" data-wallet-choice="paytm">
-            <span class="choice-icon paytm">T</span>
+            <span class="choice-icon paytm" aria-hidden="true">
+              <img src="Paytm.jpeg" alt="Paytm logo" />
+            </span>
             <span>Paytm</span>
           </button>
         </div>

@@ -78,11 +78,21 @@ function openWalletPayment(wallet, amount) {
   const amountText = amountValue.toFixed(2);
   const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
   const chooserLink = `upi://pay?${upiParams}`;
+  const isAndroid = /Android/i.test(navigator.userAgent);
 
   const walletLinks = {
-    googlepay: [`tez://upi/pay?${upiParams}`, chooserLink],
-    phonepe: [`phonepe://pay?${upiParams}`, chooserLink],
-    paytm: [`paytmmp://pay?${upiParams}`, chooserLink]
+    googlepay: [
+      isAndroid ? `tez://upi/pay?${upiParams}` : `upi://pay?${upiParams}`,
+      chooserLink
+    ],
+    phonepe: [
+      isAndroid ? `phonepe://pay?${upiParams}` : `upi://pay?${upiParams}`,
+      chooserLink
+    ],
+    paytm: [
+      isAndroid ? `paytmmp://pay?${upiParams}` : `upi://pay?${upiParams}`,
+      chooserLink
+    ]
   };
 
   const links = walletLinks[wallet] || walletLinks.googlepay;
@@ -93,9 +103,11 @@ function openWalletPayment(wallet, amount) {
     window.location.href = chooserLink;
   }
 
-  window.setTimeout(() => {
-    window.location.href = links[1];
-  }, 1200);
+  if (isAndroid) {
+    window.setTimeout(() => {
+      window.location.href = chooserLink;
+    }, 1200);
+  }
 }
 
 const walletChooser = document.getElementById('walletChooserModal');
@@ -103,8 +115,8 @@ const walletChooserClose = document.querySelector('.wallet-chooser-close');
 const walletChoiceButtons = document.querySelectorAll('[data-wallet-choice]');
 let pendingWalletSelection = null;
 
-function openWalletChooser(amount) {
-  pendingWalletSelection = { amount: Number(amount || 0) };
+function openWalletChooser(wallet, amount) {
+  pendingWalletSelection = { wallet, amount: Number(amount || 0) };
   if (!walletChooser) return;
   walletChooser.classList.add('is-open');
   walletChooser.setAttribute('aria-hidden', 'false');
@@ -132,12 +144,9 @@ if (walletChooser) {
 walletChoiceButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const wallet = button.dataset.walletChoice || 'googlepay';
+    const amount = pendingWalletSelection ? pendingWalletSelection.amount : 100;
     closeWalletChooser();
-    if (pendingWalletSelection) {
-      openWalletPayment(wallet, pendingWalletSelection.amount);
-    } else {
-      openWalletPayment(wallet, 100);
-    }
+    openWalletPayment(wallet, amount);
   });
 });
 
@@ -146,13 +155,14 @@ qrBoxes.forEach((qrBox) => {
   const trigger = () => {
     const wallet = qrBox.dataset.wallet || 'googlepay';
     const amount = 100;
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      openWalletChooser(amount);
-      pendingWalletSelection = { amount, walletFallback: wallet };
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+    if (isAndroid) {
+      openWalletPayment(wallet, amount);
       return;
     }
-    openWalletPayment(wallet, amount);
+
+    openWalletChooser(wallet, amount);
   };
 
   qrBox.addEventListener('click', trigger);
@@ -169,13 +179,14 @@ donationButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const amount = button.dataset.amount;
     const wallet = button.dataset.wallet || 'googlepay';
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      openWalletChooser(amount);
-      pendingWalletSelection = { amount: Number(amount), walletFallback: wallet };
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+    if (isAndroid) {
+      openWalletPayment(wallet, amount);
       return;
     }
-    openWalletPayment(wallet, amount);
+
+    openWalletChooser(wallet, amount);
   });
 });
 
