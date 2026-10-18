@@ -6,7 +6,7 @@ A modern, responsive landing page for a Salesforce AI consultancy that helps bus
 
 [Salesforce AI Agency](https://h3nsure.github.io/salesforce-ai-agency/)
 
-## Start your project
+## Contact us
 
 <p align="left">
   <a href="https://wa.me/917355907629?text=Hi%20Salesforce%20AI%20team%2C%20I%20want%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
@@ -15,8 +15,8 @@ A modern, responsive landing page for a Salesforce AI consultancy that helps bus
 </p>
 
 <p align="left">
-  <a href="https://h3nsure.github.io/salesforce-ai-agency/#projectModal" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/Start%20your%20project-0A7D5E?style=for-the-badge&logo=rocket&logoColor=white" alt="Start your project" width="220" height="52" />
+  <a href="https://h3nsure.github.io/salesforce-ai-agency/#contact" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Contact%20us-0A7D5E?style=for-the-badge&logo=mail&logoColor=white" alt="Contact us" width="180" height="52" />
   </a>
 </p>
 
