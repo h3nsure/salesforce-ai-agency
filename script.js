@@ -134,15 +134,30 @@ if (scrollTopButton) {
 
 faqItems.forEach((item) => {
   const button = item.querySelector('.faq-question');
-  if (!button) return;
+  const answer = item.querySelector('.faq-answer');
+  if (!button || !answer) return;
+
+  const setOpenState = () => {
+    const isOpen = item.classList.contains('active');
+    answer.style.maxHeight = isOpen ? `${answer.scrollHeight}px` : '0px';
+  };
+
+  setOpenState();
 
   button.addEventListener('click', () => {
     const active = item.classList.contains('active');
 
-    faqItems.forEach((faq) => faq.classList.remove('active'));
+    faqItems.forEach((faq) => {
+      faq.classList.remove('active');
+      const faqAnswer = faq.querySelector('.faq-answer');
+      if (faqAnswer) {
+        faqAnswer.style.maxHeight = '0px';
+      }
+    });
 
     if (!active) {
       item.classList.add('active');
+      answer.style.maxHeight = `${answer.scrollHeight}px`;
     }
   });
 });
