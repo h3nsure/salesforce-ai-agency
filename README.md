@@ -4,7 +4,13 @@ A modern, responsive landing page for a Salesforce AI consultancy that helps bus
 
 ## Live site
 
-https://h3nsure.github.io/salesforce-ai-agency/
+[Salesforce AI Agency](https://h3nsure.github.io/salesforce-ai-agency/)
+
+## Start your project
+
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/917355907629?text=Hi%20Salesforce%20AI%20team%2C%20I%20want%20to%20discuss%20my%20project.)
+
+[Start your project](https://h3nsure.github.io/salesforce-ai-agency/#contact)
 
 ## What this site offers
 
@@ -14,18 +20,6 @@ https://h3nsure.github.io/salesforce-ai-agency/
 - Voice agent experiences
 - Agentforce implementation
 - Data Cloud solutions
-
-Contact us via WhatsApp API:
-
-```text
-https://wa.me/917355907629?text=Hi%20Salesforce%20AI%20team%2C%20I%20want%20to%20discuss%20my%20project.
-```
-
-The live site is available at:
-
-```text
-https://h3nsure.github.io/salesforce-ai-agency/
-```
 
 ## Files
 
