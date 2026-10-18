@@ -454,6 +454,11 @@ body.light-mode .theme-toggle {
   object-fit: contain;
 }
 
+.wallet-name {
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .wallet-brand.google .wallet-logo,
 .choice-icon.google {
   background: rgba(26, 115, 232, 0.14);
@@ -659,6 +664,25 @@ body.light-mode .theme-toggle {
   .wallet-grid,
   .amount-grid {
     grid-template-columns: 1fr;
+  }
+
+  .wallet-brand {
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.38rem 0.7rem;
+    max-width: 100%;
+  }
+
+  .wallet-logo,
+  .wallet-logo img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .wallet-name {
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
   }
 
   .wallet-chooser-panel {
