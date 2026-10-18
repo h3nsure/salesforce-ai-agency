@@ -47,7 +47,6 @@ function openWalletPayment(wallet, amount) {
   const amountText = amountValue.toFixed(2);
   const fallbackUrl = 'https://h3nsure.github.io/salesforce-ai-agency/donation.html';
   const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
-  const genericUpiLink = `upi://pay?${upiParams}`;
 
   const walletConfig = {
     googlepay: {
@@ -71,10 +70,6 @@ function openWalletPayment(wallet, amount) {
   window.setTimeout(() => {
     window.location.href = config.intent;
   }, 700);
-
-  window.setTimeout(() => {
-    window.location.href = genericUpiLink;
-  }, 1800);
 }
 
 const donationButtons = document.querySelectorAll('.amount-btn');
