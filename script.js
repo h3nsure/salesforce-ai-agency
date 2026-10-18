@@ -35,9 +35,40 @@ if (themeToggle) {
   });
 }
 
+function showPaymentNotice(message) {
+  let existing = document.querySelector('.payment-toast');
+  if (existing) {
+    existing.textContent = message;
+    existing.classList.add('visible');
+    window.clearTimeout(existing._timer);
+  } else {
+    existing = document.createElement('div');
+    existing.className = 'payment-toast';
+    existing.textContent = message;
+    document.body.appendChild(existing);
+    existing.classList.add('visible');
+  }
+
+  existing._timer = window.setTimeout(() => {
+    existing.classList.remove('visible');
+  }, 2600);
+}
+
 function openWalletPayment(wallet, amount) {
   const amountValue = Number(amount || 0);
   if (!Number.isFinite(amountValue) || amountValue <= 0) {
+    return;
+  }
+
+  const walletNames = {
+    googlepay: 'Google Pay',
+    phonepe: 'PhonePe',
+    paytm: 'Paytm'
+  };
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  if (!isAndroid) {
+    showPaymentNotice(`Please open this page on Android to pay with ${walletNames[wallet] || 'your wallet'}.`);
     return;
   }
 
@@ -45,31 +76,26 @@ function openWalletPayment(wallet, amount) {
   const payerName = 'Support Children and Elders';
   const note = 'Donation for Education and Care';
   const amountText = amountValue.toFixed(2);
-  const fallbackUrl = 'https://h3nsure.github.io/salesforce-ai-agency/donation.html';
   const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
+  const chooserLink = `upi://pay?${upiParams}`;
 
-  const walletConfig = {
-    googlepay: {
-      app: `tez://upi/pay?${upiParams}`,
-      intent: `intent://upi/pay?${upiParams}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
-    },
-    phonepe: {
-      app: `phonepe://pay?${upiParams}`,
-      intent: `intent://pay?${upiParams}#Intent;scheme=phonepe;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
-    },
-    paytm: {
-      app: `paytmmp://pay?${upiParams}`,
-      intent: `intent://pay?${upiParams}#Intent;scheme=paytmmp;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
-    }
+  const walletLinks = {
+    googlepay: `tez://upi/pay?${upiParams}`,
+    phonepe: `phonepe://pay?${upiParams}`,
+    paytm: `paytmmp://pay?${upiParams}`
   };
 
-  const config = walletConfig[wallet] || walletConfig.googlepay;
+  const preferredLink = walletLinks[wallet] || walletLinks.googlepay;
 
-  window.location.href = config.app;
+  try {
+    window.location.href = preferredLink;
+  } catch (error) {
+    window.location.href = chooserLink;
+  }
 
   window.setTimeout(() => {
-    window.location.href = config.intent;
-  }, 700);
+    window.location.href = chooserLink;
+  }, 1400);
 }
 
 const donationButtons = document.querySelectorAll('.amount-btn');
