@@ -15,7 +15,7 @@ A modern, responsive landing page for a Salesforce AI consultancy that helps bus
 </p>
 
 <p align="left">
-  <a href="https://h3nsure.github.io/salesforce-ai-agency/" target="_blank" rel="noopener noreferrer">
+  <a href="https://h3nsure.github.io/salesforce-ai-agency/#projectModal" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/Start%20your%20project-0A7D5E?style=for-the-badge&logo=rocket&logoColor=white" alt="Start your project" width="220" height="52" />
   </a>
 </p>

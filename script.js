@@ -75,6 +75,18 @@ if (modal) {
   });
 }
 
+function syncModalFromHash() {
+  const hash = window.location.hash.toLowerCase();
+  if (hash === '#contact' || hash === '#projectmodal' || hash === '#start-project') {
+    openProjectModal();
+  } else if (!hash) {
+    closeProjectModal();
+  }
+}
+
+window.addEventListener('hashchange', syncModalFromHash);
+syncModalFromHash();
+
 if (projectForm) {
   projectForm.addEventListener('submit', async (event) => {
     event.preventDefault();
