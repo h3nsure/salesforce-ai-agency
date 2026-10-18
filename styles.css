@@ -259,30 +259,6 @@ body.light-mode .theme-toggle {
   box-shadow: var(--shadow);
 }
 
-.amount-row {
-  display: flex;
-  gap: 0.7rem;
-  justify-content: center;
-  margin-bottom: 1.2rem;
-  flex-wrap: wrap;
-}
-
-.amount-pill {
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  color: var(--text);
-  border-radius: 999px;
-  padding: 0.6rem 0.9rem;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.amount-pill.active {
-  background: linear-gradient(135deg, rgba(40,199,127,0.14), rgba(74,232,255,0.14));
-  border-color: rgba(40,199,127,0.4);
-  color: var(--primary);
-}
-
 .qr-box {
   display: grid;
   place-items: center;
@@ -371,6 +347,22 @@ body.light-mode .theme-toggle {
   line-height: 1.7;
 }
 
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.photo-gallery img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
 @media (max-width: 900px) {
   .donation-shell {
     grid-template-columns: 1fr;
@@ -380,7 +372,8 @@ body.light-mode .theme-toggle {
     min-height: 320px;
   }
 
-  .matters-grid {
+  .matters-grid,
+  .photo-gallery {
     grid-template-columns: 1fr;
   }
 }
