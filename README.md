@@ -8,9 +8,17 @@ A modern, responsive landing page for a Salesforce AI consultancy that helps bus
 
 ## Start your project
 
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/917355907629?text=Hi%20Salesforce%20AI%20team%2C%20I%20want%20to%20discuss%20my%20project.)
+<p align="left">
+  <a href="https://wa.me/917355907629?text=Hi%20Salesforce%20AI%20team%2C%20I%20want%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp contact" width="180" height="48" />
+  </a>
+</p>
 
-[Start your project](https://h3nsure.github.io/salesforce-ai-agency/#contact)
+<p align="left">
+  <a href="https://h3nsure.github.io/salesforce-ai-agency/" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Start%20your%20project-0A7D5E?style=for-the-badge&logo=rocket&logoColor=white" alt="Start your project" width="220" height="52" />
+  </a>
+</p>
 
 ## What this site offers
 
