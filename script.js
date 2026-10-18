@@ -35,6 +35,44 @@ if (themeToggle) {
   });
 }
 
+function openWalletPayment(wallet, amount) {
+  const amountValue = Number(amount || 0);
+  if (!Number.isFinite(amountValue) || amountValue <= 0) {
+    return;
+  }
+
+  const upiId = 'htjnvk@okaxis';
+  const name = 'Support%20Children%20and%20Elders';
+  const tn = 'Donation%20for%20Education%20and%20Care';
+  const amountText = amountValue.toFixed(2);
+  const fallbackUrl = encodeURIComponent('https://h3nsure.github.io/salesforce-ai-agency/donation.html');
+
+  const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${amountText}&cu=INR&tn=${tn}`;
+
+  const walletPackages = {
+    googlepay: 'com.google.android.apps.nbu.paisa.user',
+    phonepe: 'com.phonepe.app',
+    paytm: 'net.one97.paytm'
+  };
+
+  const packageName = walletPackages[wallet] || walletPackages.googlepay;
+  const intentLink = `intent://pay?pa=${upiId}&pn=${name}&am=${amountText}&cu=INR&tn=${tn}#Intent;scheme=upi;package=${packageName};S.browser_fallback_url=${fallbackUrl};end;`;
+
+  window.location.href = intentLink;
+  window.setTimeout(() => {
+    window.location.href = upiLink;
+  }, 1200);
+}
+
+const donationButtons = document.querySelectorAll('.amount-btn');
+donationButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const amount = button.dataset.amount;
+    const wallet = button.dataset.wallet || 'googlepay';
+    openWalletPayment(wallet, amount);
+  });
+});
+
 if (toggle && header) {
   toggle.addEventListener('click', () => {
     const isOpen = header.classList.toggle('is-open');
