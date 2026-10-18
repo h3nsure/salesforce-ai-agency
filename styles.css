@@ -43,14 +43,17 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: "Manrope", "Segoe UI", sans-serif;
+  letter-spacing: 0.01em;
   background: linear-gradient(180deg, #061019 0%, #0a1724 100%);
   color: var(--text);
   transition: background 0.25s ease, color 0.25s ease;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, .brand, .eyebrow {
   font-family: "Asap Condensed", "Manrope", sans-serif;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
 }
 
 body.light-mode {
