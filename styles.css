@@ -693,11 +693,14 @@ body.light-mode .modal-backdrop {
 }
 
 .price-card {
+  display: flex;
+  flex-direction: column;
   padding: 2rem 1.5rem;
 }
 
 .badge {
   display: inline-flex;
+  align-self: flex-start;
   padding: 0.45rem 0.7rem;
   border-radius: 999px;
   background: rgba(40, 199, 127, 0.12);
@@ -716,6 +719,24 @@ body.light-mode .modal-backdrop {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.price-card h3 {
+  margin-top: 0.85rem;
+}
+
+.price-card p {
+  margin-bottom: 1.2rem;
+}
+
+.price-card ul {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0 0 1.5rem;
+}
+
+.price-card .btn {
+  margin-top: auto;
 }
 
 .pricing-grid {
