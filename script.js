@@ -42,26 +42,41 @@ function openWalletPayment(wallet, amount) {
   }
 
   const upiId = 'htjnvk@okaxis';
-  const name = 'Support%20Children%20and%20Elders';
-  const tn = 'Donation%20for%20Education%20and%20Care';
+  const payerName = 'Support Children and Elders';
+  const note = 'Donation for Education and Care';
   const amountText = amountValue.toFixed(2);
-  const fallbackUrl = encodeURIComponent('https://h3nsure.github.io/salesforce-ai-agency/donation.html');
+  const fallbackUrl = 'https://h3nsure.github.io/salesforce-ai-agency/donation.html';
 
-  const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${amountText}&cu=INR&tn=${tn}`;
+  const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
 
-  const walletPackages = {
-    googlepay: 'com.google.android.apps.nbu.paisa.user',
-    phonepe: 'com.phonepe.app',
-    paytm: 'net.one97.paytm'
+  const walletConfig = {
+    googlepay: {
+      package: 'com.google.android.apps.nbu.paisa.user',
+      scheme: `tez://upi/pay?${upiParams}`,
+      intent: `intent://upi/pay?${upiParams}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
+    },
+    phonepe: {
+      package: 'com.phonepe.app',
+      scheme: `phonepe://pay?${upiParams}`,
+      intent: `intent://pay?${upiParams}#Intent;scheme=phonepe;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
+    },
+    paytm: {
+      package: 'net.one97.paytm',
+      scheme: `paytmmp://pay?${upiParams}`,
+      intent: `intent://pay?${upiParams}#Intent;scheme=paytmmp;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
+    }
   };
 
-  const packageName = walletPackages[wallet] || walletPackages.googlepay;
-  const intentLink = `intent://pay?pa=${upiId}&pn=${name}&am=${amountText}&cu=INR&tn=${tn}#Intent;scheme=upi;package=${packageName};S.browser_fallback_url=${fallbackUrl};end;`;
+  const config = walletConfig[wallet] || walletConfig.googlepay;
 
-  window.location.href = intentLink;
+  window.location.href = config.intent;
   window.setTimeout(() => {
-    window.location.href = upiLink;
+    window.location.href = config.scheme;
   }, 1200);
+
+  window.setTimeout(() => {
+    window.location.href = `upi://pay?${upiParams}`;
+  }, 2200);
 }
 
 const donationButtons = document.querySelectorAll('.amount-btn');
