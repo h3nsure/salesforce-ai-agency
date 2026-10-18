@@ -23,6 +23,11 @@ body.light-mode {
   --panel: rgba(255, 255, 255, 0.9);
   --panel-strong: #f8fbfa;
   --card: rgba(255, 255, 255, 0.8);
+  --bg: #f5f2ec;
+  --bg-soft: #faf7f2;
+  --panel: rgba(255, 255, 255, 0.9);
+  --panel-strong: #fffdf9;
+  --card: rgba(255, 255, 255, 0.82);
   --text: #13231d;
   --muted: #49615a;
   --primary: #18b584;
@@ -34,6 +39,7 @@ body.light-mode {
   --aqua: #23b7d9;
   --border: rgba(19, 35, 29, 0.09);
   --shadow: 0 18px 40px rgba(17, 33, 27, 0.1);
+  --shadow: 0 18px 40px rgba(17, 33, 27, 0.08);
 }
 
 * { box-sizing: border-box; }
@@ -50,6 +56,7 @@ body {
 
 body.light-mode {
   background: linear-gradient(180deg, #edf5f2 0%, #f6faf8 100%);
+  background: linear-gradient(180deg, #f7f4ee 0%, #f1efe8 100%);
 }
 
 img { max-width: 100%; display: block; }
@@ -191,8 +198,33 @@ body.light-mode .workflow-card,
 body.light-mode .floating-note,
 body.light-mode .cta-box {
   background: rgba(255, 255, 255, 0.8);
+body.light-mode .cta-box,
+body.light-mode .modal-panel,
+body.light-mode .dark-surface,
+body.light-mode .logo-strip,
+body.light-mode .site-footer {
+  background: rgba(255, 255, 255, 0.88);
   border-color: rgba(19, 35, 29, 0.08);
   box-shadow: var(--shadow);
+}
+
+body.light-mode .dark-surface,
+body.light-mode .logo-strip,
+body.light-mode .site-footer,
+body.light-mode .modal-backdrop {
+  background: rgba(255, 255, 255, 0.74);
+}
+
+body.light-mode .logo-row span {
+  color: rgba(19, 35, 29, 0.7);
+}
+
+body.light-mode .project-form input,
+body.light-mode .project-form select,
+body.light-mode .project-form textarea {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(19, 35, 29, 0.1);
+  color: var(--text);
 }
 
 body.light-mode .main-nav,
@@ -208,6 +240,22 @@ body.light-mode .section-heading h2,
 body.light-mode .stat-box span,
 body.light-mode .site-footer p {
   color: var(--text);
+}
+
+body.light-mode .site-footer p,
+body.light-mode .project-form label,
+body.light-mode .project-form textarea,
+body.light-mode .project-form input,
+body.light-mode .project-form select {
+  color: var(--text);
+}
+
+body.light-mode .site-footer {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+body.light-mode .modal-backdrop {
+  background: rgba(17, 33, 27, 0.18);
 }
 
 .menu-toggle {
