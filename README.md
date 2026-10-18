@@ -15,32 +15,15 @@ https://h3nsure.github.io/salesforce-ai-agency/
 - Agentforce implementation
 - Data Cloud solutions
 
-## Run locally
+## Services we provide
 
-Open the folder in a browser, or run a local static server:
-
-```bash
-cd "/Users/hemanttiwari/Desktop/Python Projects/salesforce-ai-agency-site"
-python3 -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000
-```
-
-## Deploy on GitHub Pages
-
-This project is already configured for GitHub Pages deployment.
-
-1. Push this repository to GitHub.
-2. Open the repository in GitHub.
-3. Go to Settings > Pages.
-4. Under Source, select `Deploy from a branch`.
-5. Choose the `main` branch.
-6. Set the folder to `/` (root).
-7. Click Save.
+- WhatsApp integrations
+- AI chatbot automation
+- Salesforce development and debugging
+- Voice agents and AI assistants
+- Agentforce implementation
+- Data Cloud solutions
+- Automation strategy and workflow design
 
 The live site is available at:
 
