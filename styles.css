@@ -155,6 +155,13 @@ body.light-mode .theme-toggle {
   font-weight: 600;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button.btn {
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .btn:hover { transform: translateY(-2px); }
