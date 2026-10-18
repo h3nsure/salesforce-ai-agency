@@ -77,39 +77,37 @@ function openWalletPayment(wallet, amount) {
   const note = 'Donation for Education and Care';
   const amountText = amountValue.toFixed(2);
   const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
-  const chooserLink = `upi://pay?${upiParams}`;
   const isAndroid = /Android/i.test(navigator.userAgent);
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   const walletLinks = {
-    googlepay: [
+    googlepay: isAndroid ? [
       `gpay://upi/pay?${upiParams}`,
       `googlepay://upi/pay?${upiParams}`,
-      `tez://upi/pay?${upiParams}`,
-      `upi://pay?${upiParams}`
+      `tez://upi/pay?${upiParams}`
+    ] : [
+      `gpay://upi/pay?${upiParams}`,
+      `googlepay://upi/pay?${upiParams}`
     ],
-    phonepe: isAndroid ? [
-      `phonepe://pay?${upiParams}`,
-      `upi://pay?${upiParams}`
-    ] : [`upi://pay?${upiParams}`],
-    paytm: isAndroid ? [
-      `paytmmp://pay?${upiParams}`,
-      `upi://pay?${upiParams}`
-    ] : [`upi://pay?${upiParams}`]
+    phonepe: isAndroid ? [`phonepe://pay?${upiParams}`] : [],
+    paytm: isAndroid ? [`paytmmp://pay?${upiParams}`] : []
   };
 
   const links = [...(walletLinks[wallet] || walletLinks.googlepay)];
   const openWithFallback = (index) => {
     if (index >= links.length) {
       if (wallet === 'googlepay') {
-        showPaymentNotice('Google Pay app did not open. Please ensure Google Pay is installed and try again.');
+        showPaymentNotice('Google Pay app did not open. Please install Google Pay and try again.');
         if (isAndroid) {
           window.location.href = 'https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user';
         }
         return;
       }
 
-      window.location.href = chooserLink;
+      if (wallet === 'phonepe') {
+        showPaymentNotice('PhonePe app did not open. Please install PhonePe and try again.');
+      } else if (wallet === 'paytm') {
+        showPaymentNotice('Paytm app did not open. Please install Paytm and try again.');
+      }
       return;
     }
 
@@ -122,20 +120,15 @@ function openWalletPayment(wallet, amount) {
   };
 
   try {
-    if (isAndroid || wallet === 'googlepay') {
+    if (wallet === 'googlepay' || isAndroid) {
       openWithFallback(0);
       return;
     }
 
-    window.location.href = links[0];
+    showPaymentNotice('Please install the selected wallet app and try again.');
+    openWalletChooser(wallet, amountValue);
   } catch (error) {
-    window.location.href = chooserLink;
-  }
-
-  if (!isAndroid && wallet !== 'googlepay') {
-    window.setTimeout(() => {
-      window.location.href = chooserLink;
-    }, 1200);
+    showPaymentNotice('Unable to open the selected payment app. Please try again.');
   }
 }
 
