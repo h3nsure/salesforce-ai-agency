@@ -84,26 +84,21 @@ function openWalletPayment(wallet, amount) {
       `gpay://upi/pay?${upiParams}`,
       `googlepay://upi/pay?${upiParams}`,
       `tez://upi/pay?${upiParams}`
-    ] : [
-      `gpay://upi/pay?${upiParams}`,
-      `googlepay://upi/pay?${upiParams}`
-    ],
+    ] : [`gpay://upi/pay?${upiParams}`],
     phonepe: isAndroid ? [`phonepe://pay?${upiParams}`] : [],
     paytm: isAndroid ? [`paytmmp://pay?${upiParams}`] : []
   };
 
   const links = [...(walletLinks[wallet] || walletLinks.googlepay)];
-  const openWithFallback = (index) => {
+
+  const tryOpenLinkSequence = (index) => {
     if (index >= links.length) {
       if (wallet === 'googlepay') {
         showPaymentNotice('Google Pay app did not open. Please install Google Pay and try again.');
         if (isAndroid) {
           window.location.href = 'https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user';
         }
-        return;
-      }
-
-      if (wallet === 'phonepe') {
+      } else if (wallet === 'phonepe') {
         showPaymentNotice('PhonePe app did not open. Please install PhonePe and try again.');
       } else if (wallet === 'paytm') {
         showPaymentNotice('Paytm app did not open. Please install Paytm and try again.');
@@ -114,19 +109,20 @@ function openWalletPayment(wallet, amount) {
     const nextLink = links[index];
     window.location.href = nextLink;
 
-    window.setTimeout(() => {
-      openWithFallback(index + 1);
-    }, 900);
+    if (isAndroid && links.length > 1 && index < links.length - 1) {
+      window.setTimeout(() => {
+        tryOpenLinkSequence(index + 1);
+      }, 900);
+    }
   };
 
   try {
     if (wallet === 'googlepay' || isAndroid) {
-      openWithFallback(0);
+      tryOpenLinkSequence(0);
       return;
     }
 
     showPaymentNotice('Please install the selected wallet app and try again.');
-    openWalletChooser(wallet, amountValue);
   } catch (error) {
     showPaymentNotice('Unable to open the selected payment app. Please try again.');
   }
