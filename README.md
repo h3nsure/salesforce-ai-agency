@@ -1,13 +1,31 @@
-# Salesforce AI Agency Landing Page
+# Salesforce AI Agency
 
-This project is a clean, responsive landing page template for a business that offers:
+A modern, responsive landing page for a Salesforce AI consultancy that helps businesses automate WhatsApp, AI chatbots, voice agents, and Salesforce workflows.
+
+## What this site offers
 
 - WhatsApp integrations
 - AI chatbot automation
-- Salesforce development
-- Voice agents
-- Agentforce implementations
+- Salesforce development and troubleshooting
+- Voice agent experiences
+- Agentforce implementation
 - Data Cloud solutions
+
+## Live demo
+
+This project is designed to be deployed as a static website on GitHub Pages.
+
+GitHub Pages URL pattern:
+
+```text
+https://<your-github-username>.github.io/<your-repository-name>/
+```
+
+For this repository, the live URL will be:
+
+```text
+https://h3nsure.github.io/salesforce-ai-agency/
+```
 
 ## Run locally
 
@@ -18,10 +36,35 @@ cd "/Users/hemanttiwari/Desktop/Python Projects/salesforce-ai-agency-site"
 python3 -m http.server 8000
 ```
 
-Then open: http://localhost:8000
+Then open:
+
+```text
+http://localhost:8000
+```
+
+## Deploy on GitHub Pages
+
+1. Push this repository to GitHub.
+2. Open your repository on GitHub.
+3. Go to Settings > Pages.
+4. Under Source, select: Deploy from a branch.
+5. Choose the `main` branch.
+6. Set the folder to `/` (root).
+7. Click Save.
+8. GitHub will generate a Pages URL for the site.
+
+After a minute or two, the site should be live.
 
 ## Files
 
 - `index.html` — page structure and content
 - `styles.css` — design, layout, and responsive styling
-- `script.js` — menu and FAQ interaction
+- `script.js` — menu, modal, and FAQ interaction
+- `robots.txt` — search engine crawling settings
+- `sitemap.xml` — sitemap for Google/Bing indexing
+
+## Notes
+
+This is a static HTML/CSS/JS site and does not require a backend or build step for deployment.
+
+If you later want a custom domain, you can add a `CNAME` file and configure the domain in GitHub Pages or Cloudflare.

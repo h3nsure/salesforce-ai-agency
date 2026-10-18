@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://h3nsure.github.io/salesforce-ai-agency/sitemap.xml
