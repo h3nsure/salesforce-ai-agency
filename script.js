@@ -66,9 +66,9 @@ function openWalletPayment(wallet, amount) {
     paytm: 'Paytm'
   };
 
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  if (!isAndroid) {
-    showPaymentNotice(`Please open this page on Android to pay with ${walletNames[wallet] || 'your wallet'}.`);
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!isMobile) {
+    showPaymentNotice(`Please open this page on a mobile device to pay with ${walletNames[wallet] || 'your wallet'}.`);
     return;
   }
 
@@ -80,30 +80,64 @@ function openWalletPayment(wallet, amount) {
   const chooserLink = `upi://pay?${upiParams}`;
 
   const walletLinks = {
-    googlepay: `tez://upi/pay?${upiParams}`,
-    phonepe: `phonepe://pay?${upiParams}`,
-    paytm: `paytmmp://pay?${upiParams}`
+    googlepay: [`tez://upi/pay?${upiParams}`, chooserLink],
+    phonepe: [`phonepe://pay?${upiParams}`, chooserLink],
+    paytm: [`paytmmp://pay?${upiParams}`, chooserLink]
   };
 
-  const preferredLink = walletLinks[wallet] || walletLinks.googlepay;
+  const links = walletLinks[wallet] || walletLinks.googlepay;
 
   try {
-    window.location.href = preferredLink;
+    window.location.href = links[0];
   } catch (error) {
     window.location.href = chooserLink;
   }
 
   window.setTimeout(() => {
-    window.location.href = chooserLink;
-  }, 1400);
+    window.location.href = links[1];
+  }, 1200);
 }
 
-const donationButtons = document.querySelectorAll('.amount-btn');
-donationButtons.forEach((button) => {
+const walletChooser = document.getElementById('walletChooserModal');
+const walletChooserClose = document.querySelector('.wallet-chooser-close');
+const walletChoiceButtons = document.querySelectorAll('[data-wallet-choice]');
+let pendingWalletSelection = null;
+
+function openWalletChooser(amount) {
+  pendingWalletSelection = { amount: Number(amount || 0) };
+  if (!walletChooser) return;
+  walletChooser.classList.add('is-open');
+  walletChooser.setAttribute('aria-hidden', 'false');
+}
+
+function closeWalletChooser() {
+  if (!walletChooser) return;
+  walletChooser.classList.remove('is-open');
+  walletChooser.setAttribute('aria-hidden', 'true');
+  pendingWalletSelection = null;
+}
+
+if (walletChooserClose) {
+  walletChooserClose.addEventListener('click', closeWalletChooser);
+}
+
+if (walletChooser) {
+  walletChooser.addEventListener('click', (event) => {
+    if (event.target === walletChooser) {
+      closeWalletChooser();
+    }
+  });
+}
+
+walletChoiceButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    const amount = button.dataset.amount;
-    const wallet = button.dataset.wallet || 'googlepay';
-    openWalletPayment(wallet, amount);
+    const wallet = button.dataset.walletChoice || 'googlepay';
+    closeWalletChooser();
+    if (pendingWalletSelection) {
+      openWalletPayment(wallet, pendingWalletSelection.amount);
+    } else {
+      openWalletPayment(wallet, 100);
+    }
   });
 });
 
@@ -111,7 +145,14 @@ const qrBoxes = document.querySelectorAll('.qr-box');
 qrBoxes.forEach((qrBox) => {
   const trigger = () => {
     const wallet = qrBox.dataset.wallet || 'googlepay';
-    openWalletPayment(wallet, 100);
+    const amount = 100;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      openWalletChooser(amount);
+      pendingWalletSelection = { amount, walletFallback: wallet };
+      return;
+    }
+    openWalletPayment(wallet, amount);
   };
 
   qrBox.addEventListener('click', trigger);
@@ -120,6 +161,21 @@ qrBoxes.forEach((qrBox) => {
       event.preventDefault();
       trigger();
     }
+  });
+});
+
+const donationButtons = document.querySelectorAll('.amount-btn');
+donationButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const amount = button.dataset.amount;
+    const wallet = button.dataset.wallet || 'googlepay';
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      openWalletChooser(amount);
+      pendingWalletSelection = { amount: Number(amount), walletFallback: wallet };
+      return;
+    }
+    openWalletPayment(wallet, amount);
   });
 });
 

@@ -498,6 +498,108 @@ body.light-mode .theme-toggle {
   transform: translateX(-50%) translateY(0);
 }
 
+.wallet-chooser-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(5, 12, 16, 0.74);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 120;
+}
+
+.wallet-chooser-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wallet-chooser-panel {
+  width: min(520px, calc(100% - 1.5rem));
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.25rem 1.1rem;
+  position: relative;
+}
+
+.wallet-chooser-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wallet-chooser-panel h3 {
+  margin: 0.35rem 0 1.2rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: -0.05em;
+}
+
+.wallet-chooser-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.wallet-choice-btn {
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  padding: 1rem 0.7rem;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallet-choice-btn:hover,
+.wallet-choice-btn:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(40, 199, 127, 0.4);
+  box-shadow: 0 14px 24px rgba(40, 199, 127, 0.12);
+  outline: none;
+}
+
+.choice-icon {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.choice-icon.google {
+  background: rgba(40, 199, 127, 0.15);
+  color: #8ef0bd;
+}
+
+.choice-icon.phonepe {
+  background: rgba(255, 116, 154, 0.12);
+  color: #ff9ac5;
+}
+
+.choice-icon.paytm {
+  background: rgba(59, 130, 246, 0.12);
+  color: #9ec0ff;
+}
+
 @media (max-width: 900px) {
   .donation-shell {
     grid-template-columns: 1fr;
