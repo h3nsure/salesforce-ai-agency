@@ -88,6 +88,22 @@ donationButtons.forEach((button) => {
   });
 });
 
+const qrBoxes = document.querySelectorAll('.qr-box');
+qrBoxes.forEach((qrBox) => {
+  const trigger = () => {
+    const wallet = qrBox.dataset.wallet || 'googlepay';
+    openWalletPayment(wallet, 100);
+  };
+
+  qrBox.addEventListener('click', trigger);
+  qrBox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      trigger();
+    }
+  });
+});
+
 if (toggle && header) {
   toggle.addEventListener('click', () => {
     const isOpen = header.classList.toggle('is-open');

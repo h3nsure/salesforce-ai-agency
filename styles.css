@@ -271,6 +271,16 @@ body.light-mode .theme-toggle {
   border-radius: 22px;
   background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
   border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qr-box:hover,
+.qr-box:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(40, 199, 127, 0.45);
+  box-shadow: 0 14px 22px rgba(40, 199, 127, 0.12);
+  outline: none;
 }
 
 .qr-box img {
@@ -280,6 +290,7 @@ body.light-mode .theme-toggle {
   border-radius: 18px;
   background: white;
   padding: 0.6rem;
+  pointer-events: none;
 }
 
 .upi-block {
