@@ -191,7 +191,7 @@ body.light-mode .workflow-card,
 body.light-mode .floating-note,
 body.light-mode .cta-box,
 body.light-mode .modal-panel {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.98);
   border-color: rgba(19, 35, 29, 0.08);
   box-shadow: var(--shadow);
 }
