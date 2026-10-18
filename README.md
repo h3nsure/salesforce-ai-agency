@@ -15,15 +15,11 @@ https://h3nsure.github.io/salesforce-ai-agency/
 - Agentforce implementation
 - Data Cloud solutions
 
-## Services we provide
+Contact us via WhatsApp API:
 
-- WhatsApp integrations
-- AI chatbot automation
-- Salesforce development and debugging
-- Voice agents and AI assistants
-- Agentforce implementation
-- Data Cloud solutions
-- Automation strategy and workflow design
+```text
+https://wa.me/917355907629?text=Hi%20Salesforce%20AI%20team%2C%20I%20want%20to%20discuss%20my%20project.
+```
 
 The live site is available at:
 
