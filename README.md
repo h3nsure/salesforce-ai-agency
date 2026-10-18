@@ -2,6 +2,10 @@
 
 A modern, responsive landing page for a Salesforce AI consultancy that helps businesses automate WhatsApp, AI chatbots, voice agents, and Salesforce workflows.
 
+## Live site
+
+https://h3nsure.github.io/salesforce-ai-agency/
+
 ## What this site offers
 
 - WhatsApp integrations
@@ -10,22 +14,6 @@ A modern, responsive landing page for a Salesforce AI consultancy that helps bus
 - Voice agent experiences
 - Agentforce implementation
 - Data Cloud solutions
-
-## Live demo
-
-This project is designed to be deployed as a static website on GitHub Pages.
-
-GitHub Pages URL pattern:
-
-```text
-https://<your-github-username>.github.io/<your-repository-name>/
-```
-
-For this repository, the live URL will be:
-
-```text
-https://h3nsure.github.io/salesforce-ai-agency/
-```
 
 ## Run locally
 
@@ -44,16 +32,21 @@ http://localhost:8000
 
 ## Deploy on GitHub Pages
 
+This project is already configured for GitHub Pages deployment.
+
 1. Push this repository to GitHub.
-2. Open your repository on GitHub.
+2. Open the repository in GitHub.
 3. Go to Settings > Pages.
-4. Under Source, select: Deploy from a branch.
+4. Under Source, select `Deploy from a branch`.
 5. Choose the `main` branch.
 6. Set the folder to `/` (root).
 7. Click Save.
-8. GitHub will generate a Pages URL for the site.
 
-After a minute or two, the site should be live.
+The live site is available at:
+
+```text
+https://h3nsure.github.io/salesforce-ai-agency/
+```
 
 ## Files
 
