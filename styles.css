@@ -49,7 +49,8 @@ body {
 }
 
 h1, h2, h3, h4, .brand, .eyebrow {
-  font-family: "Sora", "Manrope", sans-serif;
+  font-family: "Asap Condensed", "Manrope", sans-serif;
+  letter-spacing: -0.04em;
 }
 
 body.light-mode {
