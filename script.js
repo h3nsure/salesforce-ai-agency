@@ -139,6 +139,14 @@ if (projectForm) {
 }
 
 if (scrollTopButton) {
+  const toggleScrollTopButton = () => {
+    const shouldShow = window.scrollY > 420;
+    scrollTopButton.classList.toggle('visible', shouldShow);
+  };
+
+  toggleScrollTopButton();
+  window.addEventListener('scroll', toggleScrollTopButton, { passive: true });
+
   scrollTopButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
