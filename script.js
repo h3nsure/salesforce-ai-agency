@@ -79,31 +79,60 @@ function openWalletPayment(wallet, amount) {
   const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
   const chooserLink = `upi://pay?${upiParams}`;
   const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   const walletLinks = {
     googlepay: [
-      isAndroid ? `tez://upi/pay?${upiParams}` : `upi://pay?${upiParams}`,
-      chooserLink
+      `gpay://upi/pay?${upiParams}`,
+      `googlepay://upi/pay?${upiParams}`,
+      `tez://upi/pay?${upiParams}`,
+      `upi://pay?${upiParams}`
     ],
-    phonepe: [
-      isAndroid ? `phonepe://pay?${upiParams}` : `upi://pay?${upiParams}`,
-      chooserLink
-    ],
-    paytm: [
-      isAndroid ? `paytmmp://pay?${upiParams}` : `upi://pay?${upiParams}`,
-      chooserLink
-    ]
+    phonepe: isAndroid ? [
+      `phonepe://pay?${upiParams}`,
+      `upi://pay?${upiParams}`
+    ] : [`upi://pay?${upiParams}`],
+    paytm: isAndroid ? [
+      `paytmmp://pay?${upiParams}`,
+      `upi://pay?${upiParams}`
+    ] : [`upi://pay?${upiParams}`]
   };
 
-  const links = walletLinks[wallet] || walletLinks.googlepay;
+  const links = [...(walletLinks[wallet] || walletLinks.googlepay)];
+  const openWithFallback = (index) => {
+    if (index >= links.length) {
+      if (wallet === 'googlepay') {
+        showPaymentNotice('Google Pay app did not open. Please ensure Google Pay is installed and try again.');
+        if (isAndroid) {
+          window.location.href = 'https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user';
+        }
+        return;
+      }
+
+      window.location.href = chooserLink;
+      return;
+    }
+
+    const nextLink = links[index];
+    window.location.href = nextLink;
+
+    window.setTimeout(() => {
+      openWithFallback(index + 1);
+    }, 900);
+  };
 
   try {
+    if (isAndroid || wallet === 'googlepay') {
+      openWithFallback(0);
+      return;
+    }
+
     window.location.href = links[0];
   } catch (error) {
     window.location.href = chooserLink;
   }
 
-  if (isAndroid) {
+  if (!isAndroid && wallet !== 'googlepay') {
     window.setTimeout(() => {
       window.location.href = chooserLink;
     }, 1200);
@@ -157,7 +186,7 @@ qrBoxes.forEach((qrBox) => {
     const amount = 100;
     const isAndroid = /Android/i.test(navigator.userAgent);
 
-    if (isAndroid) {
+    if (isAndroid || wallet === 'googlepay') {
       openWalletPayment(wallet, amount);
       return;
     }
@@ -181,7 +210,7 @@ donationButtons.forEach((button) => {
     const wallet = button.dataset.wallet || 'googlepay';
     const isAndroid = /Android/i.test(navigator.userAgent);
 
-    if (isAndroid) {
+    if (isAndroid && wallet !== 'googlepay') {
       openWalletPayment(wallet, amount);
       return;
     }
