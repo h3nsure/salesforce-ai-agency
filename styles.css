@@ -911,8 +911,8 @@ input:focus, select:focus, textarea:focus {
   position: fixed;
   right: 1.4rem;
   bottom: 1.2rem;
-  width: 3.9rem;
-  height: 3.9rem;
+  width: 4.6rem;
+  height: 4.6rem;
   border: 1px solid rgba(255, 255, 255, 0.28);
   background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
   color: var(--text);
@@ -947,9 +947,9 @@ body.light-mode .scroll-top {
 .whatsapp-float {
   position: fixed;
   right: 1.4rem;
-  bottom: 5.4rem;
-  width: 5rem;
-  height: 5rem;
+  bottom: 6.7rem;
+  width: 4.6rem;
+  height: 4.6rem;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -1056,15 +1056,15 @@ body.light-mode .scroll-top {
   .scroll-top {
     right: 1rem;
     bottom: 1rem;
-    width: 4.2rem;
-    height: 4.2rem;
+    width: 4.4rem;
+    height: 4.4rem;
   }
 
   .whatsapp-float {
     right: 1rem;
-    bottom: 5.8rem;
-    width: 5.4rem;
-    height: 5.4rem;
+    bottom: 6.4rem;
+    width: 4.4rem;
+    height: 4.4rem;
     border-width: 3px;
   }
 }
