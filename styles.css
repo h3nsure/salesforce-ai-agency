@@ -91,6 +91,7 @@ body.light-mode .site-header {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -126,6 +127,7 @@ body.light-mode .site-header {
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  flex-wrap: wrap;
 }
 
 .theme-toggle {
@@ -1430,6 +1432,24 @@ body.light-mode .scroll-top {
   .menu-toggle {
     display: block;
   }
+
+  .donation-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .donation-visual {
+    min-height: 330px;
+  }
+
+  .matters-grid,
+  .photo-gallery,
+  .wallet-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .amount-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 620px) {
@@ -1437,20 +1457,59 @@ body.light-mode .scroll-top {
   .steps-grid,
   .stats-grid,
   .logo-row,
-  .form-grid {
+  .form-grid,
+  .matters-grid,
+  .photo-gallery,
+  .wallet-grid {
     grid-template-columns: 1fr;
   }
 
+  .nav-wrap {
+    align-items: center;
+  }
+
   .nav-actions {
+    width: 100%;
     gap: 0.5rem;
+    justify-content: stretch;
+  }
+
+  .nav-actions .btn {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  .theme-toggle {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+  }
+
+  .hero-actions,
+  .donation-actions {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .btn {
     width: 100%;
   }
 
-  .hero-actions {
-    display: grid;
+  .donation-copy h1 {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+  }
+
+  .photo-gallery img {
+    height: 220px;
+  }
+
+  .wallet-card,
+  .matter-card,
+  .info-card,
+  .step-card,
+  .price-card {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .scroll-top {
