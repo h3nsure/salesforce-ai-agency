@@ -46,37 +46,35 @@ function openWalletPayment(wallet, amount) {
   const note = 'Donation for Education and Care';
   const amountText = amountValue.toFixed(2);
   const fallbackUrl = 'https://h3nsure.github.io/salesforce-ai-agency/donation.html';
-
   const upiParams = `pa=${upiId}&pn=${encodeURIComponent(payerName)}&am=${amountText}&cu=INR&tn=${encodeURIComponent(note)}`;
+  const genericUpiLink = `upi://pay?${upiParams}`;
 
   const walletConfig = {
     googlepay: {
-      package: 'com.google.android.apps.nbu.paisa.user',
-      scheme: `tez://upi/pay?${upiParams}`,
+      app: `tez://upi/pay?${upiParams}`,
       intent: `intent://upi/pay?${upiParams}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
     },
     phonepe: {
-      package: 'com.phonepe.app',
-      scheme: `phonepe://pay?${upiParams}`,
+      app: `phonepe://pay?${upiParams}`,
       intent: `intent://pay?${upiParams}#Intent;scheme=phonepe;package=com.phonepe.app;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
     },
     paytm: {
-      package: 'net.one97.paytm',
-      scheme: `paytmmp://pay?${upiParams}`,
+      app: `paytmmp://pay?${upiParams}`,
       intent: `intent://pay?${upiParams}#Intent;scheme=paytmmp;package=net.one97.paytm;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end;`
     }
   };
 
   const config = walletConfig[wallet] || walletConfig.googlepay;
 
-  window.location.href = config.intent;
-  window.setTimeout(() => {
-    window.location.href = config.scheme;
-  }, 1200);
+  window.location.href = config.app;
 
   window.setTimeout(() => {
-    window.location.href = `upi://pay?${upiParams}`;
-  }, 2200);
+    window.location.href = config.intent;
+  }, 700);
+
+  window.setTimeout(() => {
+    window.location.href = genericUpiLink;
+  }, 1800);
 }
 
 const donationButtons = document.querySelectorAll('.amount-btn');
