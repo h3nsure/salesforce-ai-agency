@@ -89,13 +89,19 @@ function openWalletPayment(wallet, amount) {
   const isAndroid = /Android/i.test(navigator.userAgent);
 
   const walletLinks = {
-    googlepay: isAndroid ? [
+    googlepay: [
       `gpay://upi/pay?${upiParams}`,
       `googlepay://upi/pay?${upiParams}`,
-      `tez://upi/pay?${upiParams}`
-    ] : [`gpay://upi/pay?${upiParams}`],
-    phonepe: isAndroid ? [`phonepe://pay?${upiParams}`] : [],
-    paytm: isAndroid ? [`paytmmp://pay?${upiParams}`] : []
+      ...(isAndroid ? [`tez://upi/pay?${upiParams}`] : [])
+    ],
+    phonepe: [
+      `phonepe://pay?${upiParams}`,
+      `phonepe://upi/pay?${upiParams}`
+    ],
+    paytm: [
+      `paytmmp://pay?${upiParams}`,
+      `paytm://pay?${upiParams}`
+    ]
   };
 
   const links = [...(walletLinks[wallet] || walletLinks.googlepay)];
@@ -108,9 +114,9 @@ function openWalletPayment(wallet, amount) {
           window.location.href = 'https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user';
         }
       } else if (wallet === 'phonepe') {
-        showPaymentNotice('PhonePe app did not open. Please install PhonePe and try again.');
+        showPaymentNotice('PhonePe app did not open. Please ensure PhonePe is installed and try again.');
       } else if (wallet === 'paytm') {
-        showPaymentNotice('Paytm app did not open. Please install Paytm and try again.');
+        showPaymentNotice('Paytm app did not open. Please ensure Paytm is installed and try again.');
       }
       return;
     }
@@ -118,7 +124,7 @@ function openWalletPayment(wallet, amount) {
     const nextLink = links[index];
     window.location.href = nextLink;
 
-    if (isAndroid && links.length > 1 && index < links.length - 1) {
+    if (links.length > 1 && index < links.length - 1) {
       window.setTimeout(() => {
         tryOpenLinkSequence(index + 1);
       }, 900);
@@ -126,7 +132,7 @@ function openWalletPayment(wallet, amount) {
   };
 
   try {
-    if (wallet === 'googlepay' || isAndroid) {
+    if (wallet === 'googlepay' || wallet === 'phonepe' || wallet === 'paytm' || isAndroid) {
       tryOpenLinkSequence(0);
       return;
     }
